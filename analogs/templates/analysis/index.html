@@ -16,7 +16,8 @@
         <div class="col-12 col-lg-8">
             <!-- Loop through each analysis passed in from the view -->
             {% for analysis in analyses %}
-                <div class="border rounded p-4 mb-4 bg-light shadow-sm">
+                <div class="border rounded p-4 mb-4 bg-light shadow-sm position-relative">
+                    <a href="{{ url_for('analysis.detail', id=analysis['id']) }}" class="stretched-link"></a>
                     <!-- Header section is for song title, artist, metadata, and edit link -->
                     <header class="d-flex justify-content-between align-items-start mb-3">
                         <!-- Container is for song title, artist, and metadata -->
@@ -32,7 +33,7 @@
                         <!-- If the logged in user is the author, show the Edit link -->
                         {% if g.user and g.user['id'] == analysis['author_id'] %}
                             <a
-                                class="btn btn-sm btn-outline-secondary"
+                                class="btn btn-sm btn-outline-secondary position-relative z-1"
                                 href="{{ url_for('analysis.update', id=analysis['id']) }}"
                             >
                                 Edit

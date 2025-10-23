@@ -22,9 +22,9 @@ CREATE TABLE analysis (
 CREATE TABLE comment (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     analysis_id INTEGER NOT NULL,
-    author_id INTEGER NOT NULL,
+    author_id INTEGER,
+    body TEXT NOT NULL,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    content TEXT NOT NULL,
     FOREIGN KEY (analysis_id) REFERENCES analysis (id),
     FOREIGN KEY (author_id) REFERENCES user (id)
 );

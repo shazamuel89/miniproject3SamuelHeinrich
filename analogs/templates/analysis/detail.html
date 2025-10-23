@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ analysis.title }}{% endblock %}
+
+{% block header %}
+    <h1 class="mt-4">{{ analysis.title }}</h1>
+    {% if analysis.author %}
+        <p class="about">by {{ analysis.author }}</p>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <!-- Main analysis body -->
+    <article class="mb-4">
+        <p class="preformatted">{{ analysis.body }}</p>
+    </article>
+    <hr>
+
+    <!-- Comment form -->
+    <section class="mb-4">
+        <h2>Add a Comment</h2>
+        <form method="post" action="{{ url_for('comment.create') }}" class="border rounded p-3 bg-light">
+            <input type="hidden" name="analysis_id" value="{{ analysis.id }}">
+            <div class="mb-3">
+                <label for="comment_body" class="form-label">Your Comment</label>
+                <textarea
+                    name="body"
+                    id="comment_body"
+                    class="form-control"
+                    required
+                >{{ request.form.get('body', '') }}</textarea>
+            </div>
+
+            {% if g.user %}
+                <p class="text-muted mb-2 fst-italic">Commenting as {{ g.user['username'] }}</p>
+            {% else %}
+                <p class="text-muted mb-2 fst-italic">You will appear as Anonymous</p>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary w-100">Submit Comment</button>
+        </form>
+    </section>
+    <hr>
+
+    <!-- Comments list -->
+    <section class="mb-4">
+        <h2>Comments</h2>
+        {% if comments and comments|length %}
+            <ul class="list-group mb-3">
+                {% for comment in comments %}
+                    <li class="list-group-item">
+                        <div class="mb-1">{{ comment.body }}</div>
+                        <small class="text-muted">
+                            — {{ comment.author or 'Anonymous' }}
+                        </small>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-muted fst-italic">No comments yet.</p>
+        {% endif %}
+    </section>
+{% endblock %}

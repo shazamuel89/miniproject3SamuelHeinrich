@@ -34,6 +34,11 @@ def create_app(test_config=None):
     # Import the analysis blueprint and register it with the app
     from . import analysis
     app.register_blueprint(analysis.bp)
+
+    # Import the comment blueprint and register it with the app
+    from . import comment
+    app.register_blueprint(comment.bp)
+
     # Add the root URL rule to map to the analysis index endpoint
     app.add_url_rule('/', endpoint='index')
 

@@ -29,6 +29,30 @@ def index():
     # Render the index.html template passing in the analysis data
     return render_template('analysis/index.html', analyses=analyses)
 
+@bp.route('/<int:id>')
+def detail(id):
+    db = get_db()
+
+    # Fetch the analysis (no author check needed)
+    analysis = get_analysis(id, check_author=False)
+
+    # Fetch comments for this analysis
+    comments = db.execute(
+        '''
+        SELECT c.body,
+               c.created,
+               u.username AS author
+        FROM comment c
+        LEFT JOIN user u ON c.author_id = u.id
+        WHERE c.analysis_id = ?
+        ORDER BY c.created ASC
+        ''',
+        (id,)
+    ).fetchall()
+
+    # Render the template with both analysis & comments
+    return render_template('analysis/detail.html', analysis=analysis, comments=comments)
+
 # Define a route for creating new analysis that accepts GET and POST
 @bp.route('/create', methods=('GET', 'POST'))
 # Wrap the route with the login_required decorator
