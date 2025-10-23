@@ -72,7 +72,7 @@ def create():
 def get_analysis(id, check_author=True):
     # Run a SQL query to fetch the analysis and its data
     analysis = get_db().execute(
-        'SELECT a.id, a.song_title, a.author, a.body, a.created, a.author_id, u.username'
+        'SELECT a.id, a.song_title, a.artist, a.body, a.created, a.author_id, u.username'
         ' FROM analysis a JOIN user u ON a.author_id = u.id'
         ' WHERE a.id = ?',
         (id,)

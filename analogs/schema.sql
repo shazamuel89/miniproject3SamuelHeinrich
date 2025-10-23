@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS user;
 CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL,
+    password TEXT NOT NULL
 );
 
 CREATE TABLE analysis (
@@ -16,7 +16,7 @@ CREATE TABLE analysis (
     song_title TEXT NOT NULL,
     artist TEXT NOT NULL,
     body TEXT NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES user (id),
+    FOREIGN KEY (author_id) REFERENCES user (id)
 );
 
 CREATE TABLE comment (
@@ -26,5 +26,5 @@ CREATE TABLE comment (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     content TEXT NOT NULL,
     FOREIGN KEY (analysis_id) REFERENCES analysis (id),
-    FOREIGN KEY (author_id) REFERENCES user (id),
+    FOREIGN KEY (author_id) REFERENCES user (id)
 );
