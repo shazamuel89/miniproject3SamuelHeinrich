@@ -15,7 +15,7 @@ CREATE TABLE analysis (
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     song_title TEXT NOT NULL,
     artist TEXT NOT NULL,
-    analysis_body TEXT NOT NULL,
+    body TEXT NOT NULL,
     FOREIGN KEY (author_id) REFERENCES user (id),
 );
 

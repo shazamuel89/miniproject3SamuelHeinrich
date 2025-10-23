@@ -1,10 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+<!-- Override the header block -->
+{% block header %}
+    <!-- Set the h1 and the title block specifically for this page -->
+    <h1 class="mb-4">{% block title %}Analyses{% endblock %}</h1>
+    <!-- Only show New link if user is logged in -->
+    {% if g.user %}
+        <a class="btn btn-primary" href="{{ url_for('analysis.create') }}">New</a>
+    {% endif %}
+{% endblock %}
+
+<!-- Override the main content block for this page -->
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <!-- Loop through each analysis passed in from the view -->
+            {% for analysis in analyses %}
+                <div class="border rounded p-4 mb-4 bg-light shadow-sm">
+                    <!-- Header section is for song title, artist, metadata, and edit link -->
+                    <header class="d-flex justify-content-between align-items-start mb-3">
+                        <!-- Container is for song title, artist, and metadata -->
+                        <div>
+                            <h2 class="h4 mb-1">{{ analysis['song_title'] }}</h2>
+                            <h3 class="h6 text-muted mb-2">{{ analysis['artist'] }}</h3>
+                            <!-- Metadata: author name and date created -->
+                            <div class="text-muted small">
+                                by {{ analysis['username'] }}
+                                on {{ analysis['created'].strftime('%Y-%m-%d') }}
+                            </div>
+                        </div>
+                        <!-- If the logged in user is the author, show the Edit link -->
+                        {% if g.user and g.user['id'] == analysis['author_id'] %}
+                            <a
+                                class="btn btn-sm btn-outline-secondary"
+                                href="{{ url_for('analysis.update', id=analysis['id']) }}"
+                            >
+                                Edit
+                            </a>
+                        {% endif %}
+                    </header>
+                    <!-- Show the body of the analysis -->
+                    <p class="mb-0">{{ analysis['body'] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

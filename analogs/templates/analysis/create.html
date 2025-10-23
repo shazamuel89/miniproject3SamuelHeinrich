@@ -1,10 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+<!-- Override the header block -->
+{% block header %}
+    <!-- Set the h1 and the title block specifically for this page -->
+    <h1 class="mb-4">{% block title %}New Analysis{% endblock %}</h1>
+{% endblock %}
+
+<!-- Override the main content block for this page -->
+{% block content %}
+<!-- Center the new analysis form on the screen using Bootstrap grid -->
+<div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+        <!-- New analysis form -->
+        <form method="post" class="border rounded p-4 shadow-sm bg-light">
+            <!-- Song title field group -->
+            <div class="mb-3">
+                <label for="song_title" class="form-label">Song Title</label>
+                <input
+                    type="text"
+                    name="song_title"
+                    id="song_title"
+                    class="form-control"
+                    value="{{ request.form.get('song_title', '') }}"
+                    required
+                >
+            </div>
+            <!-- Artist field group -->
+            <div class="mb-3">
+                <label for="artist" class="form-label">Artist</label>
+                <input
+                    type="text"
+                    name="artist"
+                    id="artist"
+                    class="form-control"
+                    value="{{ request.form.get('artist', '') }}"
+                    required
+                >
+            </div>
+            <!-- Body field group -->
+            <div class="mb-4">
+                <label for="body" class="form-label">Body</label>
+                <textarea
+                    name="body"
+                    id="body"
+                    class="form-control"
+                    required
+                >{{ request.form.get('body', '') }}</textarea>
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary w-100">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

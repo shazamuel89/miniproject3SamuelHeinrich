@@ -1,10 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+<!-- Override the header block -->
+{% block header %}
+    <!-- Set the h1 and the title block specifically for this page -->
+    <h1 class="mb-4">{% block title %}Log In{% endblock %}</h1>
+{% endblock %}
+
+<!-- Override the main content block for this page -->
+{% block content %}
+<!-- Center the login form on the screen using Bootstrap grid -->
+<div class="row justify-content-center">
+    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+        <!-- Login form -->
+        <form method="post" class="border rounded p-4 shadow-sm bg-light">
+            <!-- Username field group -->
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    class="form-control"
+                    required
+                >
+            </div>
+            <!-- Password field group -->
+            <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="form-control"
+                    required
+                >
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary w-100">Log In</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

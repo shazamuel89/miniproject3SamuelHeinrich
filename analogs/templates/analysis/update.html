@@ -1,10 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+<!-- Override the header block -->
+{% block header %}
+    <!-- Set the h1 and the title block specifically for this page -->
+    <h1 class="mb-4">{% block title %}Edit "{{ analysis['song_title'] }} analysis"{% endblock %}</h1>
+{% endblock %}
+
+<!-- Override the main content block for this page -->
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+            <!-- Edit form -->
+            <form method="post" class="border rounded p-4 shadow-sm bg-light">
+                <!-- Song Title -->
+                <div class="mb-3">
+                    <label for="song_title" class="form-label">Song Title</label>
+                    <input
+                        type="text"
+                        name="song-title"
+                        id="song_title"
+                        class="form-control"
+                        value="{{ request.form.get('song_title', analysis['song_title']) }}"
+                        required
+                    >
+                </div>
+                <!-- Artist -->
+                <div class="mb-3">
+                    <label for="artist" class="form-label">Artist</label>
+                    <input
+                        type="text"
+                        name="artist"
+                        id="artist"
+                        class="form-control"
+                        value="{{ request.form.get('artist', analysis['artist']) }}"
+                        required
+                    >
+                </div>
+                <!-- Body -->
+                <div class="mb-4">
+                    <label for="body" class="form-label">Body</label>
+                    <textarea
+                        name="body"
+                        id="body"
+                        class="form-control"
+                        required
+                    >{{ request.form.get('body', analysis['body']) }}</textarea>
+                </div>
+                <!-- Save button -->
+                <button type="submit" class="btn btn-primary w-100 mb-3">Save</button>
+            </form>
+            <!-- Delete button triggers modal -->
+            <button
+                type="button"
+                class="btn btn-danger w-100 mb-3"
+                data-bs-toggle="modal"
+                data-bs-target="#confirmDeleteModal"
+            >
+                Delete
+            </button>
+        </div>
+    </div>
+    <hr>
+    <!-- Delete confirmation modal -->
+    <div class="modal fade" id="confirmDeleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to permanently delete this analysis?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <form action="{{ url_for('analysis.delete', id=analysis['id']) }}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger">Yes, delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
