@@ -1,3 +1,7 @@
+# INF601 - Advanced Programming in Python
+# Samuel Heinrich
+# Mini Project 3
+
 # functools helps wrap view functions without losing their metadata
 import functools
 

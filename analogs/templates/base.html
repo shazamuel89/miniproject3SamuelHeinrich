@@ -11,13 +11,21 @@
     <body>
         <nav class="navbar navbar-expand bg-light px-3">
             <div class="container px-3">
-                <span class="navbar-brand">Analogs</span>
+                <a class="navbar-brand" href="{{ url_for('index') }}">Analogs</a>
                 <!-- List user control links -->
                 <ul class="navbar-nav ms-auto">
                     <!-- If user is logged in -->
                     {% if g.user %}
-                        <!-- Show the logged in username and logout link -->
-                        <li class="nav-item"><span class="nav-link disabled">{{ g.user['username'] }}</span></li>
+                        <li class="nav-item d-flex align-items-center me-3">
+                        <a href="{{ url_for('profile.profile') }}" class="d-inline-block">
+                                <img
+                                    src="{% if g.user.profile_picture %}{{ url_for('static', filename='uploads/' ~ g.user.profile_picture) }}{% else %}{{ url_for('static', filename='default_profile.png') }}{% endif %}"
+                                    alt="Profile"
+                                    class="rounded-circle"
+                                    style="width:32px; height:32px; object-fit:cover;"
+                                >
+                            </a>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Log Out</a></li>
                     {% else %}
                         <!-- Otherwise, show the login and register links -->

@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ analysis.title }}{% endblock %}
+{% block title %}{{ analysis.song_title }}{% endblock %}
 
 {% block header %}
-    <h1 class="mt-4">{{ analysis.title }}</h1>
-    {% if analysis.author %}
-        <p class="about">by {{ analysis.author }}</p>
+    <h1 class="mt-4">{{ analysis.song_title }}</h1>
+    {% if analysis.artist %}
+        <p class="about">by {{ analysis.artist }}</p>
     {% endif %}
 {% endblock %}
 

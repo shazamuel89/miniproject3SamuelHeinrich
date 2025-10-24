@@ -1,3 +1,6 @@
+# INF601 - Advanced Programming in Python
+# Samuel Heinrich
+# Mini Project 3
 
 # Allows interaction with SQLite databases
 import sqlite3

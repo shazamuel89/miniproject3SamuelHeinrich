@@ -1,3 +1,7 @@
+# INF601 - Advanced Programming in Python
+# Samuel Heinrich
+# Mini Project 3
+
 from flask import Blueprint, request, redirect, url_for, g, flash
 from analogs.db import get_db
 
@@ -18,7 +22,7 @@ def create():
     user_id = g.user['id'] if hasattr(g, 'user') and g.user else None
 
     db.execute(
-        'INSERT INTO comment (analysis_id, user_id, body)'
+        'INSERT INTO comment (analysis_id, author_id, body)'
         ' VALUES (?, ?, ?)',
         (analysis_id, user_id, body)
     )

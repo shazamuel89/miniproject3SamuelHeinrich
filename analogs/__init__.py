@@ -1,3 +1,7 @@
+# INF601 - Advanced Programming in Python
+# Samuel Heinrich
+# Mini Project 3
+
 import os
 
 from flask import Flask
@@ -41,6 +45,12 @@ def create_app(test_config=None):
 
     # Add the root URL rule to map to the analysis index endpoint
     app.add_url_rule('/', endpoint='index')
+
+    from . import profile
+    app.register_blueprint(profile.bp)
+
+    app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'uploads')
+    app.config['MAX_CONTENT_LENGTH'] = 2 * 1024 * 1024
 
     # Return the fully configured application instance
     return app

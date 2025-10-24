@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block header %}
+    <h1>Your Profile</h1>
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <!-- Show current profile picture if it exists -->
+            {% if g.user.profile_picture %}
+                <div class="text-center mb-4">
+                    <img src="{{ url_for('static', filename='uploads/' ~ g.user.profile_picture) }}"
+                         alt="Profile picture"
+                         class="rounded-circle"
+                         style="width:120px; height:120px; object-fit:cover;"
+                    >
+                </div>
+            {% endif %}
+            <form method="post" enctype="multipart/form-data">
+                <!-- Username -->
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input class="form-control" type="text" name="username" value="{{ g.user.username }}" required>
+                </div>
+                <!-- New password -->
+                <div class="mb-3">
+                    <label class="form-label">New Password (leave blank to keep current)</label>
+                    <input class="form-control" type="password" name="password">
+                </div>
+                <!-- File upload -->
+                <div class="mb-3">
+                    <label class="form-label">Profile Picture</label>
+                    <input class="form-control" type="file" name="profile_picture" accept="image/*">
+                </div>
+                <button class="btn btn-primary w-100" type="submit">Save Changes</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

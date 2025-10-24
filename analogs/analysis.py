@@ -1,3 +1,7 @@
+# INF601 - Advanced Programming in Python
+# Samuel Heinrich
+# Mini Project 3
+
 # Import Flask utilities for routing, flash messages, global user context, redirects, rendering, requests, and URL building
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for
