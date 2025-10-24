@@ -71,8 +71,7 @@ Samuel Heinrich
 This project is Unlicensed - provided without any license grant.
  
 ## Acknowledgments
- 
-Inspiration, code snippets, etc.
+
 * [Flask Documentation](https://flask.palletsprojects.com/en/stable/)
 * [Flask Tutorial](https://flask.palletsprojects.com/en/stable/tutorial/)
 * [Bootstrap Documentation](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
